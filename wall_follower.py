@@ -2,6 +2,7 @@ import pygame
 from maze import maze
 
 # WALL FOLLOWER ALGORITHM
+# Function to check if we can move Forward or not
 def Forward(maze, i, j, face, vis):
     if face=='U':
         if i>0 and maze.maze[i-1][j] == 0 and vis[i-1][j] != 1:
@@ -17,6 +18,7 @@ def Forward(maze, i, j, face, vis):
             return True
     return False
 
+# Function to check if we can move Left or not
 def Left(maze, i, j, face, vis):
     if face=='U':
         if j>0 and maze.maze[i][j-1] == 0 and vis[i][j-1] != 1:
@@ -32,6 +34,7 @@ def Left(maze, i, j, face, vis):
             return True
     return False
 
+# Function to check if we can move Right or not
 def Right(maze, i, j, face, vis):
     if face=='U':
         if j<maze.width-1 and maze.maze[i][j+1] == 0 and vis[i][j+1] != 1:
@@ -47,6 +50,7 @@ def Right(maze, i, j, face, vis):
             return True
     return False
 
+# Function to change the direction of the robot
 def turn(face, dir):
     if dir=='L':
         if face=='U':
@@ -77,16 +81,23 @@ def turn(face, dir):
             face = 'R'
     return face
 
-
+# Function to solve the maze using Left wall as a guide
 def solveWallLeft(maze, i, j, l, r, face, vis, solutionWall, flag):
+
+    # If we've reached the end, we're done
     if i==10 and j==19:
         flag = True
         solutionWall.append((i,j))
         return;
+
+    # If end has been reached, then there is no need to continue
     if not flag:
+        # If we can move left, turn left
         if Left(maze, i, j, face, vis) :
             face = turn(face, 'L')
             solveWallLeft(maze, i, j, l, r, face, vis, solutionWall, flag)
+
+        # Otherwise, if we can move forward, do so
         elif Forward(maze, i, j, face, vis) :
             solutionWall.append((i,j))
             vis[i][j] = 1
@@ -98,9 +109,13 @@ def solveWallLeft(maze, i, j, l, r, face, vis, solutionWall, flag):
                 solveWallLeft(maze, i, j+1, l, r, face, vis, solutionWall, flag)
             elif face=='U':
                 solveWallLeft(maze, i-1, j, l, r, face, vis, solutionWall, flag)
+
+        # Otherwise, if we can move right, turn right
         elif Right(maze, i, j, face, vis) :
             face = turn(face, 'R')
             solveWallLeft(maze, i, j, l, r, face, vis, solutionWall, flag)
+
+        # If we can do none of the above, then turn around
         else :
             for x in range(0,maze.height):
                 for y in range(0,maze.width):
@@ -110,6 +125,7 @@ def solveWallLeft(maze, i, j, l, r, face, vis, solutionWall, flag):
             solveWallLeft(maze, i, j, l, r, face, vis, solutionWall, flag)
     return
 
+# Function to solve the maze using Right wall as a guide
 def solveWallRight(maze, i, j, l, r, face, vis, solutionWall, flag):
     if i==10 and j==19:
         flag = True
@@ -142,6 +158,7 @@ def solveWallRight(maze, i, j, l, r, face, vis, solutionWall, flag):
             solveWallRight(maze, i, j, l, r, face, vis, solutionWall, flag)
     return
 
+# Function to visualize the solution
 def showWall(solution, screen, running):
     red = (255, 0 , 0)
     blue = (0, 0, 255)

@@ -18,15 +18,23 @@ if __name__ == '__main__':
     running = True
     pygame.init()
     maze = maze()
+
+    # Solution array to store the solution path
     solution = []
+    # Visited array to store the visited nodes
     vis = []
     for i in range(0,maze.height+1):
         vis.append([0]*(maze.width+1))
+    
+    # Initial value of flag and face
     flag = False
     face = 'D'
+
+    # Choose which algorithm to use
     # solveDFS(maze, 0, 1, 10, 19, vis, solution, flag)
     solveWallRight(maze, 0, 1, 10, 19, face, vis, solution, flag)
     # solveWallLeft(maze, 0, 1, 10, 19, face, vis, solution, flag)
+    
     while running:
         # screen = pygame.display.set_mode((840,500))
         # screen.fill(white)
