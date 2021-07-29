@@ -1,8 +1,7 @@
 # Maze-Solver
 Maze Solver using Pygame
 
-## About  
----
+## About
 This is a python maze solver script implemented using [Pygame](https://www.pygame.org/wiki/GettingStarted).
 
 The maze can be initialized manually as a 2D matrix of **0** and **1**, or using **.jpg** or **.png** file.
@@ -44,7 +43,6 @@ This is the best algorithm for finding the shortest path in a maze. It uses the 
 <br />
 
 ## Usage Guide
----
 Just un-comment the code you want to use and run the script.
 
 Make sure to install [Pygame](https://www.pygame.org/wiki/GettingStarted) and [OpenCV](http://opencv.org/) first.
