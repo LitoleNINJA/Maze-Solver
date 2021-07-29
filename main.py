@@ -1,51 +1,72 @@
 from pygame.locals import *
 import pygame
 from maze import maze
-from Treamaux import solveDFS, showDFS
-from wall_follower import solveWallLeft, solveWallRight, showWall
+from Treamaux import *
+from wall_follower import *
+from aStar import *
+from img_to_bin import *
 import sys
-sys.setrecursionlimit(200)
+sys.setrecursionlimit(10000)
 
 
-red = (255, 0 , 0)
-green = (0, 255, 0)
-blue = (0, 0, 255)
-black = (0, 0, 0)
 white = (255, 255, 255)
+black = (0, 0, 0)
+green = (0,255,0)
+
 
 
 if __name__ == '__main__':
     running = True
     pygame.init()
-    maze = maze()
 
     # Solution array to store the solution path
     solution = []
-    # Visited array to store the visited nodes
-    vis = []
-    for i in range(0,maze.height+1):
-        vis.append([0]*(maze.width+1))
     
     # Initial value of flag and face
     flag = False
     face = 'D'
 
+    # If maze in in form of jpg / png, covert it into array using opencv
+    path = "maze20.png"
+    m, height, width = img_to_bin(path)
+
+    maze = maze()
+    maze.maze = m
+    maze.height = height
+    maze.width = width
+    cell_h, cell_w = 10, 10
+
+    # Visited array to store the visited nodes
+    vis = []
+    for i in range(0, height+1):
+        vis.append([0]*( width+1))
+
+
+    screen = pygame.display.set_mode((height*cell_h, width*cell_w))
+    pygame.display.set_caption('Maze Solver')
+    screen.fill(white)
+    maze.draw(screen = screen, cell = cell_h)
+    pygame.display.update()
+
+    # Set start and end points
+    start = (1, 1)
+    end = (height-2, width-2)
+    print(maze.maze)
+
     # Choose which algorithm to use
-    # solveDFS(maze, 0, 1, 10, 19, vis, solution, flag)
-    solveWallRight(maze, 0, 1, 10, 19, face, vis, solution, flag)
-    # solveWallLeft(maze, 0, 1, 10, 19, face, vis, solution, flag)
-    
+
+    solveDFS(maze, start[0], start[1], end[0], end[1], vis, solution, flag)
+    # solveWallRight(maze, 0, 1, 10, 19, face, vis, solution, flag)
+    # solveWallLeft(maze, 1, 1, 199, 199, face, vis, solution, flag)
+    # solveAStar(maze, 1, 1, 39, 39, solution)
+    # print(solution)
+
     while running:
-        # screen = pygame.display.set_mode((840,500))
-        # screen.fill(white)
+        
         # maze.draw(display_surf=screen)
-        screen = pygame.display.set_mode((840,500))
-        screen.fill(white)
-        maze.draw(display_surf=screen)
-        pygame.display.set_caption('Maze Solver')
-        pygame.display.update()
-        # running = showDFS(solution, screen, running)
-        running = showWall(solution, screen, running)
+        # running = showDFS(solution, cell_h, screen, running)
+        # running = showWall(solution, screen, cell_w, running)
+        # running = showStar(maze, solution, cell_h, screen, running)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
