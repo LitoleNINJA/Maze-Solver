@@ -39,7 +39,7 @@ This is standard maze-solving algorith that stick to a wall and follow it until 
 
 ## 3. **A-Star Search Algorithm**
 
-This is the best algorithm for finding the shortest path in a maze. It uses the heuristic function to find the best path. The heuristic function is a way to inform the search about the direction to a goal. It provides an informed way to guess which neighbor of a node will lead to a goal. Here, we use the carrthm distance between two nodes as the heuristic.  
+This is the best algorithm for finding the shortest path in a maze. It uses the heuristic function to find the best path. The heuristic function is a way to inform the search about the direction to a goal. It provides an informed way to guess which neighbor of a node will lead to a goal. Here, we use the euclidean distance between two nodes as the heuristic.  
 <br />
 
 ## Usage Guide
