@@ -27,7 +27,7 @@ Here is an exmaple of maze as image:
 
 The maze can be solved using the following algorithms:
 
-## 1. **Treamaux Algorithm**
+## 1. **Tremaux Algorithm**
 
 This is the standard recursive DFS algorithm that goes through all the possible paths, until the end of the maze is reached.    
 <br />
