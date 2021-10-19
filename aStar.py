@@ -61,7 +61,7 @@ def solveAStar(maze, i, j, l, r, solution):
             if maze.maze[neighbor[0]][neighbor[1]] == 1:
                 continue
 
-            # If the node is already visited or it's f_score is greater than , skip this node
+            # If the node is already visited or it's f_score is greater than g_score of neighbor, skip this node
             if neighbor in close and f_score >= g_score.get(neighbor, 0):
                 continue
 
