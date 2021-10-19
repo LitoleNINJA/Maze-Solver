@@ -4,7 +4,7 @@ from maze import maze
 
 # Function to calculate Heuristic
 def heuristic(i, j, l, r):
-    return (i - l)**2 + abs(j - r)**2
+    return abs(i - l)**2 + abs(j - r)**2
 
 # Function to solve the maze
 def solveAStar(maze, i, j, l, r, solution):
